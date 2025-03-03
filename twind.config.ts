@@ -5,11 +5,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        brandBlue: '#0AB',
-        brandGray: '#222', 
+        brandBlue: "#0AB",
+        brandGray: "#222",
       },
       fontFamily: {
-        roboto: ['Roboto', 'sans'],
+        roboto: ["Roboto", "sans"],
       },
     },
   },
