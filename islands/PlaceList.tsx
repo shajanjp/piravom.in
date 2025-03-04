@@ -13,15 +13,14 @@ export default function PlaceList(props: any) {
   }, [props.data]);
 
   return (
-    <div>
-      <table>
-        <thead>
-          <b>{category}</b>
-        </thead>
-        <tbody>
+    <div class="mt-2 overflow-hidden ring-1 shadow-sm ring-black/5 sm:rounded-lg">
+      <table class="min-w-full divide-y divide-gray-300">
+        <tbody class="divide-y divide-gray-200 bg-white">
           {places.map((place: any) => (
             <tr>
-              <td>{place.name}</td>
+              <td class="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-6">
+                {place.name}
+              </td>
             </tr>
           ))}
         </tbody>

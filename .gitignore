@@ -9,3 +9,5 @@
 _fresh/
 
 start.sh
+
+node_modules/
