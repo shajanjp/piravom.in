@@ -12,13 +12,22 @@ export default function PlaceList(props: any) {
   useEffect(() => {
   }, [props.data]);
 
+  let emojiMapping = {
+    "Shopping": "🛍",
+    "Emergency": "🚨",
+    "Education": "🎓",
+    "Religious": "⛪",
+    "Entertainment": "🎭",
+    "Food": "🍔",
+  };
+
   return (
     <div class="mt-2 overflow-hidden ring-1 shadow-sm ring-black/5 sm:rounded-lg">
       <table class="min-w-full divide-y divide-gray-300">
         <tbody class="divide-y divide-gray-200 bg-white">
           <tr>
             <td class="py-2 pr-2 pl-2 text-sm font-bold bg-gray-100 whitespace-normal text-gray-900 sm:pl-2">
-              {category}
+              {emojiMapping[category]} {category}
             </td>
           </tr>
           {places.map((place: any) => (

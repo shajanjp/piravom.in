@@ -31,18 +31,15 @@ export const handler: Handlers<Place> = {
 
 export default function ProjectPage(props: PageProps) {
   return (
-    <div class="container mx-auto">
+    <div class="container mx-auto mt-5">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <ul
-          role="list"
-          class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-        >
+        <div class="columns-2 md:columns-4 gap-4 space-y-4">
           {Object.keys(props.data).map((category: string) => (
-            <li class="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow-sm">
+            <div class="divide-y divide-gray-200 rounded-lg bg-white shadow-sm">
               <PlaceList data={{ category, entries: props.data[category] }} />
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </div>
   );
