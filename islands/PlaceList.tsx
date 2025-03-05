@@ -33,7 +33,13 @@ export default function PlaceList(props: any) {
           {places.map((place: any) => (
             <tr>
               <td class="py-2 pr-2 pl-2 text-sm font-medium whitespace-normal text-gray-700 sm:pl-2">
-                {place.name}
+                <a
+                  href={place.mapUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {place.name}
+                </a>
               </td>
             </tr>
           ))}

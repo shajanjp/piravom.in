@@ -1,6 +1,4 @@
 import { useSignal } from "@preact/signals";
-import Counter from "../islands/Counter.tsx";
-import { Navbar } from "../components/Navbar.tsx";
 
 export default function Home() {
   const count = useSignal(3);
@@ -76,7 +74,7 @@ export default function Home() {
                   Piravom.in
                 </h1>
                 <p class="mt-8 text-lg font-medium text-pretty text-gray-500 sm:max-w-md sm:text-xl/8 lg:max-w-none">
-                  Discover everything our hometown has to offer—all in one
+                  Discover everything our hometown has to offer - all in one
                   place! From the best restaurants and shopping spots to
                   essential services like hospitals, schools, and government
                   offices, we’ve got you covered. Whether you’re a resident or a

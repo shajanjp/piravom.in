@@ -8,23 +8,24 @@ interface Place {
 
 export const handler: Handlers<Place> = {
   async GET(_req, ctx) {
-    // const places = [{ name: "Place 1" }, { name: "Place 2" }];
     const places = await placesRepo.getAll();
     let placesFormatted = places.results.reduce((acc, { properties }) => {
-      // console.log(JSON.stringify(properties, null, 2));
       const category = properties["Category"]?.select.name;
       const name = properties["Name"]?.title[0]?.plain_text;
+      const mapUrl = properties["Google Map Location"]?.url;
+
       acc[category] = acc[category] || [];
-      acc[category].push({ name, category });
+      acc[category].push({ name, category, mapUrl });
+
       return acc;
     }, {});
-    console.log(JSON.stringify(placesFormatted, null, 2));
 
     if (!places) {
       return ctx.renderNotFound({
-        message: "Project does not exist",
+        message: "Places does not exist",
       });
     }
+
     return ctx.render(placesFormatted);
   },
 };
