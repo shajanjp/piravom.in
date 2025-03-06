@@ -22,7 +22,7 @@ export default function PlaceList(props: any) {
   };
 
   return (
-    <div class="mt-2 overflow-hidden ring-1 shadow-sm ring-black/5 sm:rounded-lg">
+    <div class="overflow-hidden ring-1 shadow-sm ring-black/5 sm:rounded-lg">
       <table class="min-w-full divide-y divide-gray-300">
         <tbody class="divide-y divide-gray-200 bg-white">
           <tr>

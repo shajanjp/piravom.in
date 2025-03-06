@@ -44,7 +44,7 @@ export function Navbar() {
           <a href="/list" class="text-sm/6 font-semibold text-gray-900">
             Attractions
           </a>
-          <a href="#" class="text-sm/6 font-semibold text-gray-900">
+          <a href="/emergency" class="text-sm/6 font-semibold text-gray-900">
             Emergency
           </a>
           <a href="#" class="text-sm/6 font-semibold text-gray-900">

@@ -11,3 +11,5 @@ _fresh/
 start.sh
 
 node_modules/
+
+.DS_Store
