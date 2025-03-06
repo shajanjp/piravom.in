@@ -21,11 +21,12 @@ export const handler: Handlers<Place> = {
     const places = await placesRepo.getAll(emergencyFilter);
     let placesFormatted: EmergencyContact[] = places.results.reduce(
       (acc, { properties }) => {
-        const name = properties["Name"]?.title[0]?.plain_text;
-        const mapUrl = properties["Google Map Location"]?.url;
-        const phone = properties["Phone"]?.phone_number;
-        console.log(JSON.stringify(properties, null, 2));
-        acc.push({ name, mapUrl, phone });
+        acc.push({
+          name: properties["Name"]?.title[0]?.plain_text,
+          mapUrl: properties["Google Map Location"]?.url,
+          phone: properties["Phone"]?.phone_number,
+          description: properties["Description"]?.rich_text[0]?.plain_text,
+        });
 
         return acc;
       },
@@ -73,7 +74,9 @@ export default function EmergencyPage(props: PageProps) {
                 <div class="-mt-px flex divide-x divide-gray-200">
                   <div class="flex w-0 flex-1">
                     <a
-                      href="mailto:janecooper@example.com"
+                      href={item.mapUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       class="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
                     >
                       <svg
@@ -89,7 +92,7 @@ export default function EmergencyPage(props: PageProps) {
                         <path d="m19 8.839-7.77 3.885a2.75 2.75 0 0 1-2.46 0L1 8.839V14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.839Z">
                         </path>
                       </svg>
-                      Email
+                      Location
                     </a>
                   </div>
                   <div class="-ml-px flex w-0 flex-1">
