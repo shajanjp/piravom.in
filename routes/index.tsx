@@ -1,8 +1,37 @@
 import { useSignal } from "@preact/signals";
+import PlaceList from "../islands/PlaceList.tsx";
+import placesRepo from "../utils/places-repo.ts";
 
-export default function Home() {
-  const count = useSignal(3);
+interface Place {
+  name: string;
+  category: string;
+}
 
+export const handler: Handlers<Place> = {
+  async GET(_req, ctx) {
+    const places = await placesRepo.getAll({});
+    let placesFormatted = places.results.reduce((acc, { properties }) => {
+      const category = properties["Category"]?.select.name;
+      const name = properties["Name"]?.title[0]?.plain_text;
+      const mapUrl = properties["Google Map Location"]?.url;
+
+      acc[category] = acc[category] || [];
+      acc[category].push({ name, category, mapUrl });
+
+      return acc;
+    }, {});
+
+    if (!places) {
+      return ctx.renderNotFound({
+        message: "Places does not exist",
+      });
+    }
+
+    return ctx.render(placesFormatted);
+  },
+};
+
+export default function Home(props: PageProps) {
   return (
     <main>
       <div class="relative isolate">
@@ -67,7 +96,7 @@ export default function Home() {
           </div>
         </div>
         <div class="overflow-hidden">
-          <div class="mx-auto max-w-7xl px-6 pt-12 pb-32 sm:pt-60 lg:px-8 lg:pt-12">
+          <div class="mx-auto max-w-7xl px-6 pt-12 pb-20 sm:pt-60 lg:px-8 lg:pt-12">
             <div class="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
               <div class="relative w-full lg:max-w-xl lg:shrink-0 xl:max-w-2xl">
                 <h1 class="text-5xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-7xl">
@@ -148,6 +177,22 @@ export default function Home() {
               </div>
             </div>
           </div>
+          <div class="container mx-auto mt-5">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div class="columns-1 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-4 space-y-4">
+                {Object.keys(props.data).map((category: string) => (
+                  <div class="divide-y divide-gray-200 rounded-lg bg-white shadow-sm">
+                    <PlaceList
+                      data={{ category, entries: props.data[category] }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <footer class="text-center mt-10 pt-5 pb-5 bg-slate-50">
+            Made with ❤️ by the Shajan & Emil
+          </footer>
         </div>
       </div>
     </main>

@@ -34,7 +34,7 @@ export default function ProjectPage(props: PageProps) {
   return (
     <div class="container mx-auto mt-5">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="columns-2 md:columns-4 gap-4 space-y-4">
+        <div class="columns-1 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-4 space-y-4">
           {Object.keys(props.data).map((category: string) => (
             <div class="divide-y divide-gray-200 rounded-lg bg-white shadow-sm">
               <PlaceList data={{ category, entries: props.data[category] }} />

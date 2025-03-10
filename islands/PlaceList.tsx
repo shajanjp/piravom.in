@@ -19,6 +19,8 @@ export default function PlaceList(props: any) {
     "Religious": "⛪",
     "Entertainment": "🎭",
     "Food": "🍔",
+    "Attraction": "✨",
+    "Bank": "💰",
   };
 
   return (
@@ -27,7 +29,7 @@ export default function PlaceList(props: any) {
         <tbody class="divide-y divide-gray-200 bg-white">
           <tr>
             <td class="py-2 pr-2 pl-2 text-sm font-bold bg-gray-100 whitespace-normal text-gray-900 sm:pl-2">
-              {emojiMapping[category]} {category}
+              {emojiMapping[category] || "📍"} {category}
             </td>
           </tr>
           {places.map((place: any) => (
