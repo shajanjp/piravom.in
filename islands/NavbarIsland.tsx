@@ -50,7 +50,7 @@ export function NavbarIsland() {
           </button>
         </div>
         <div class="hidden lg:flex lg:gap-x-12">
-          <a href="/list" class="text-sm/6 font-semibold text-gray-900">
+          <a href="/attractions" class="text-sm/6 font-semibold text-gray-900">
             Attractions
           </a>
           <a href="/emergency" class="text-sm/6 font-semibold text-gray-900">
@@ -73,7 +73,7 @@ export function NavbarIsland() {
         <div class="lg:hidden" id="mobile-menu">
           <div class="space-y-1 px-2 pb-3 pt-2">
             <a
-              href="/list"
+              href="/attractions"
               class="block rounded-md px-3 py-2 text-base font-medium text-gray-900"
             >
               Attractions
