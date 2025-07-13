@@ -1,4 +1,12 @@
-export function Navbar() {
+import { useState } from "preact/hooks";
+
+export function NavbarIsland() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
     <header class="inset-x-0 top-0 z-50 border-b border-gray-200">
       <nav
@@ -18,6 +26,7 @@ export function Navbar() {
         <div class="flex lg:hidden">
           <button
             type="button"
+            onClick={toggleMobileMenu}
             class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
           >
             <span class="sr-only">Open main menu</span>
@@ -60,6 +69,42 @@ export function Navbar() {
           </a>
         </div>
       </nav>
+      {isMobileMenuOpen && (
+        <div class="lg:hidden" id="mobile-menu">
+          <div class="space-y-1 px-2 pb-3 pt-2">
+            <a
+              href="/list"
+              class="block rounded-md px-3 py-2 text-base font-medium text-gray-900"
+            >
+              Attractions
+            </a>
+            <a
+              href="/emergency"
+              class="block rounded-md px-3 py-2 text-base font-medium text-gray-900"
+            >
+              Emergency
+            </a>
+            <a
+              href="#"
+              class="block rounded-md px-3 py-2 text-base font-medium text-gray-900"
+            >
+              Business
+            </a>
+            <a
+              href="#"
+              class="block rounded-md px-3 py-2 text-base font-medium text-gray-900"
+            >
+              About
+            </a>
+            <a
+              href="#"
+              class="block rounded-md px-3 py-2 text-base font-medium text-gray-900"
+            >
+              Explore
+            </a>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
