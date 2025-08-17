@@ -59,7 +59,7 @@ export function NavbarIsland() {
           <a href="#" class="text-sm/6 font-semibold text-gray-900">
             Business
           </a>
-          <a href="#" class="text-sm/6 font-semibold text-gray-900">
+          <a href="/about" class="text-sm/6 font-semibold text-gray-900">
             About
           </a>
         </div>
@@ -97,7 +97,7 @@ export function NavbarIsland() {
               About
             </a>
             <a
-              href="#"
+              href="/about"
               class="block rounded-md px-3 py-2 text-base font-medium text-gray-900"
             >
               Explore
