@@ -13,7 +13,7 @@ export default function App({ Component }: AppProps) {
       </head>
       <body>
         <div>
-          <div class="bg-white">
+          <div class="bg-white min-h-screen">
             <NavbarIsland />
             <Component />
           </div>
