@@ -1,31 +1,25 @@
+/// <reference lib="deno.unstable" />
+
 import PlaceList from "../islands/PlaceList.tsx";
+import { Handlers, PageProps } from "$fresh/server.ts";
 import placesRepo from "../utils/places-repo.ts";
 
 interface Place {
   name: string;
   category: string;
+  mapUrl: string;
+  image?: string;
+  description?: string;
 }
 
-export const handler: Handlers<Place> = {
+export const handler: Handlers = {
   async GET(_req, ctx) {
-    const places = await placesRepo.getAll({});
-    let placesFormatted = places.results.reduce((acc, { properties }) => {
-      const category = properties["Category"]?.select.name;
-      const name = properties["Name"]?.title[0]?.plain_text;
-      const mapUrl = properties["Google Map Location"]?.url;
-
-      acc[category] = acc[category] || [];
-      acc[category].push({ name, category, mapUrl });
-
-      return acc;
-    }, {});
-
-    if (!places) {
+    const placesFormatted = await placesRepo.getAllFromKv();
+    if (!placesFormatted || Object.keys(placesFormatted).length === 0) {
       return ctx.renderNotFound({
-        message: "Places does not exist",
+        message: "Places do not exist",
       });
     }
-
     return ctx.render(placesFormatted);
   },
 };

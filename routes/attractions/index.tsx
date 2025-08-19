@@ -9,23 +9,14 @@ interface Attraction {
 
 export const handler: Handlers<Attraction[]> = {
   async GET(_req, ctx) {
-    const kv = await Deno.openKv();
-
-    const attrationsList = await kv.list({
-      prefix: ["placesByCategory", "Attraction"],
-    });
-    const placesFormatted = [];
-
-    for await (const entry of attrationsList) {
-      placesFormatted.push(entry.value);
-    }
-
+    const placesFormatted = await placesRepo.getPlacesFromKvByCategory(
+      "Attraction",
+    );
     if (!placesFormatted.length) {
       return ctx.renderNotFound({
         message: "Attractions do not exist",
       });
     }
-
     return ctx.render(placesFormatted);
   },
 };

@@ -1,4 +1,4 @@
-import PlaceList from "../../islands/PlaceList.tsx";
+import { Handlers, PageProps } from "$fresh/server.ts";
 import placesRepo from "../../utils/places-repo.ts";
 
 interface EmergencyContact {
@@ -8,42 +8,21 @@ interface EmergencyContact {
   description: string;
 }
 
-export const handler: Handlers<Place> = {
+export const handler: Handlers<EmergencyContact[]> = {
   async GET(_req, ctx) {
-    const emergencyFilter: ObjectLiteral = {
-      "filter": {
-        "property": "Category",
-        "select": {
-          "equals": "Emergency",
-        },
-      },
-    };
-    const places = await placesRepo.getAll(emergencyFilter);
-    let placesFormatted: EmergencyContact[] = places.results.reduce(
-      (acc, { properties }) => {
-        acc.push({
-          name: properties["Name"]?.title[0]?.plain_text,
-          mapUrl: properties["Google Map Location"]?.url,
-          phone: properties["Phone"]?.phone_number,
-          description: properties["Description"]?.rich_text[0]?.plain_text,
-        });
-
-        return acc;
-      },
-      [],
+    const placesFormatted = await placesRepo.getPlacesFromKvByCategory(
+      "Emergency",
     );
-
     if (!placesFormatted.length) {
       return ctx.renderNotFound({
         message: "Places does not exist",
       });
     }
-
     return ctx.render(placesFormatted);
   },
 };
 
-export default function EmergencyPage(props: PageProps) {
+export default function EmergencyPage({ data }: PageProps<EmergencyContact[]>) {
   return (
     <div class="bg-gray-100 py-8">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -51,7 +30,7 @@ export default function EmergencyPage(props: PageProps) {
           role="list"
           class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {props.data.map((item: EmergencyContact) => (
+          {data.map((item: EmergencyContact) => (
             <li class="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow-sm">
               <div class="flex w-full items-center justify-between space-x-6 p-6">
                 <div class="flex-1 truncate">
