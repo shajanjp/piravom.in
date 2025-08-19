@@ -1,6 +1,5 @@
 import placesRepo from "../../utils/places-repo.ts";
 import { Handlers, PageProps } from "$fresh/server.ts";
-
 interface Attraction {
   name: string;
   mapUrl: string;
@@ -10,23 +9,16 @@ interface Attraction {
 
 export const handler: Handlers<Attraction[]> = {
   async GET(_req, ctx) {
-    const attractionsFilter = {
-      filter: {
-        property: "Category",
-        select: {
-          equals: "Attraction",
-        },
-      },
-    };
-    const places = await placesRepo.getAll(attractionsFilter);
-    const placesFormatted: Attraction[] = places.results.map((
-      { properties },
-    ) => ({
-      name: properties["Name"]?.title[0]?.plain_text,
-      mapUrl: properties["Google Map Location"]?.url,
-      image: properties["Image"]?.files[0]?.file?.url,
-      description: properties["Description"]?.rich_text[0]?.plain_text,
-    }));
+    const kv = await Deno.openKv();
+
+    const attrationsList = await kv.list({
+      prefix: ["placesByCategory", "Attraction"],
+    });
+    const placesFormatted = [];
+
+    for await (const entry of attrationsList) {
+      placesFormatted.push(entry.value);
+    }
 
     if (!placesFormatted.length) {
       return ctx.renderNotFound({
