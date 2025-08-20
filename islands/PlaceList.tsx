@@ -16,9 +16,9 @@ export default function PlaceList(props: any) {
     "Shopping": "🛍",
     "Emergency": "🚨",
     "Education": "🎓",
-    "Religious": "⛪",
+    "Places of worship": "🧘‍♂️",
     "Entertainment": "🎭",
-    "Food": "🍔",
+    "Restaurants": "🍔",
     "Attraction": "✨",
     "Bank": "💰",
   };

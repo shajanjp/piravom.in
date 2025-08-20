@@ -13,8 +13,16 @@ Deno.cron("Update cache data", "0 6 * * *", async () => {
 async function loadDataToKv() {
   const kv = await Deno.openKv();
   console.log("removing existing data from kv");
-  await kv.delete(["placesByCategory"]);
-  await kv.delete(["places"]);
+
+  const placesByCategoryKeys = await kv.list({ prefix: ["placesByCategory"] });
+for await (const key of placesByCategoryKeys) {
+  await kv.delete(key.key);
+}
+
+  const placesKeys = await kv.list({ prefix: ["places"] });
+for await(const key of placesKeys) {
+  await kv.delete(key.key);
+}
 
   const places = await getPlacesDataFromNotion();
   console.log("loading new data to kv");
