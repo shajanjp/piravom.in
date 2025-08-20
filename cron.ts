@@ -15,14 +15,14 @@ async function loadDataToKv() {
   console.log("removing existing data from kv");
 
   const placesByCategoryKeys = await kv.list({ prefix: ["placesByCategory"] });
-for await (const key of placesByCategoryKeys) {
-  await kv.delete(key.key);
-}
+  for await (const key of placesByCategoryKeys) {
+    await kv.delete(key.key);
+  }
 
   const placesKeys = await kv.list({ prefix: ["places"] });
-for await(const key of placesKeys) {
-  await kv.delete(key.key);
-}
+  for await (const key of placesKeys) {
+    await kv.delete(key.key);
+  }
 
   const places = await getPlacesDataFromNotion();
   console.log("loading new data to kv");
