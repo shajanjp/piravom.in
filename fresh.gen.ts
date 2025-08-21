@@ -5,7 +5,9 @@
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $about_index from "./routes/about/index.tsx";
+import * as $api_middleware from "./routes/api/_middleware.ts";
 import * as $api_joke from "./routes/api/joke.ts";
+import * as $api_update_kv_store from "./routes/api/update-kv-store.ts";
 import * as $attractions_index from "./routes/attractions/index.tsx";
 import * as $bus_timings_index from "./routes/bus-timings/index.tsx";
 import * as $emergency_index from "./routes/emergency/index.tsx";
@@ -22,7 +24,9 @@ const manifest = {
     "./routes/_404.tsx": $_404,
     "./routes/_app.tsx": $_app,
     "./routes/about/index.tsx": $about_index,
+    "./routes/api/_middleware.ts": $api_middleware,
     "./routes/api/joke.ts": $api_joke,
+    "./routes/api/update-kv-store.ts": $api_update_kv_store,
     "./routes/attractions/index.tsx": $attractions_index,
     "./routes/bus-timings/index.tsx": $bus_timings_index,
     "./routes/emergency/index.tsx": $emergency_index,
