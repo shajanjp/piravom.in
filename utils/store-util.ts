@@ -20,16 +20,38 @@ export async function loadDataToKv() {
   const places = await getPlacesDataFromNotion();
   console.log("loading new data to kv");
 
-  for (let place of places) {
-    await kv.set(["places", place.id], place);
-    await kv.set(["placesByCategory", place.category, place.id], place);
+  let batch = kv.atomic();
+  let batchCount = 0;
+
+  for (const place of places) {
+    batch.set(["places", place.id], place);
+    batch.set(["placesByCategory", place.category, place.id], place);
+    batchCount += 2;
+
+    if (batchCount >= 500) {
+      await batch.commit();
+
+      batch = kv.atomic();
+      batchCount = 0;
+    }
+  }
+
+  if (batchCount > 0) {
+    await batch.commit();
   }
 
   console.log("completed loading data to kv");
 }
 
 async function getPlacesDataFromNotion() {
-  const { results } = await placesRepo.getAll();
+  const { results } = await placesRepo.getAll({
+    "sorts": [
+      {
+        "property": "Rank",
+        "direction": "ascending",
+      },
+    ],
+  });
 
   return results.map(({ properties, id }) => ({
     id,
